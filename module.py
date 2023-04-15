@@ -3,7 +3,6 @@ import cv2
 from ultralytics import YOLO
 import time
 
-
 class ModuleOfCar:
     def detection_car(self, file_path):
         model = YOLO('yolov8n.pt')

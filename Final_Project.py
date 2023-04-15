@@ -15,7 +15,7 @@ import module
 import time
 
 LabelBase.register(
-    name="font2", fn_regular="D:\Hk2_Nam3\Image_Processing\Final_Project\Font\\font2.ttf")
+    name="font2", fn_regular="./Font/font2.ttf")
 
 
 class WindowExit(Popup):
