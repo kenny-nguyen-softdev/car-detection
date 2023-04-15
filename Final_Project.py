@@ -112,6 +112,14 @@ class TheThirdScreen(Screen):
         print(self.ids.video3.state)
     pass
 
+    def couting_car(self):
+        start_time = time.time()
+        self.detect_car.vehicle_couting_car(self.file_path_video)
+        self.end_time = time.time() - start_time
+        self.ids.video3.source = "./Videos/video10.avi"
+        print("End time to slove" + str(self.end_time))
+        pass
+
 
 class TheFourthScreen(Screen):
     pass
