@@ -62,7 +62,7 @@ class ModuleOfCar:
             "./Videos/video10.avi", cv.VideoWriter_fourcc(*'MJPG'), 10, size_of_video)
         subtracao = cv.createBackgroundSubtractorMOG2()
 
-        while True:
+        while cap.isOpened():
             ret, frame1 = cap.read()
             tempo = float(1/self.delay)
             sleep(tempo)
@@ -101,8 +101,7 @@ class ModuleOfCar:
             # cv.imshow("Video Original", frame1)
             # cv.imshow("Detectar", dilatada)
             video_save.write(frame1)
-
-            if cv.waitKey(1) == 27:
+            if cv.waitKey(10) & 0xFF == ord('q'):
                 break
 
         cap.release()

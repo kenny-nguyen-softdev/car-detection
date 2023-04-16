@@ -11,6 +11,7 @@ from kivy.uix.videoplayer import VideoPlayer
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.clock import Clock
+import os
 import module
 import time
 
@@ -61,6 +62,7 @@ class TheSecondScreen(Screen):
 class TheThirdScreen(Screen):
     times = 0
     end_time = 0
+    current = None
     i = 0
     file_path_video = StringProperty("No file chosen")
     the_popup = ObjectProperty(None)
@@ -68,6 +70,17 @@ class TheThirdScreen(Screen):
 
     def __init__(self, **kwargs):
         super(TheThirdScreen, self).__init__(**kwargs)
+
+    def Reset(self):
+        DirPath = ".\Videos"
+        Files = os.listdir(DirPath)
+        for File in Files:
+            if (File == 'video4.avi'):
+                os.remove(File)
+                break
+            else:
+                break
+        pass
 
     def open_popup(self):
         self.the_popup = WindowLoadVideo()
@@ -86,10 +99,14 @@ class TheThirdScreen(Screen):
 
     def detect_object(self):
         start_time = time.time()
-        self.detect_car.detection_car(self.file_path_video)
+        self.on_start()
+        Clock.schedule_once(self.show_video, 10)
         self.end_time = time.time() - start_time
+        print("Time to solve video is: " + str(self.end_time) + "s")
+
+    def show_video(self, *args):
+        self.detect_car.detection_car(self.file_path_video)
         self.ids.video3.source = "./Videos/video4.avi"
-        print(self.end_time)
 
     def cancel(self):
         self.the_popup.dismiss()
@@ -98,14 +115,14 @@ class TheThirdScreen(Screen):
         self.ids.video3.state = "play"
         print(self.ids.video3.state)
 
-    def on_start(self):
-        Clock.schedule_interval(self.update_label, 0.5)
+    # def on_start(self):
+    #     Clock.schedule_interval(self.update_label, 0.5)
 
-    def update_label(self, *args):
-        self.times += 1
-        new_time = self.ids.time.text.replace(str(self.i), str(self.times))
-        self.ids.time.text = new_time
-        self.i += 1
+    # def update_label(self, *args):
+    #     self.times += 1
+    #     new_time = self.ids.time.text.replace(str(self.i), str(self.times))
+    #     self.ids.time.text = new_time
+    #     self.i += 1
 
     def pause_video(self):
         self.ids.video3.state = "pause"
@@ -119,6 +136,22 @@ class TheThirdScreen(Screen):
         self.ids.video3.source = "./Videos/video10.avi"
         print("End time to slove" + str(self.end_time))
         pass
+
+    def on_start(self):
+        self.function_clock = Clock.schedule_interval(self.press_it, 1)
+        pass
+
+    def stop_function(self, *args):
+        self.function_clock.cancel()
+
+    def press_it(self, *args):
+        self.current = self.ids.my_progress_bar.value
+        if (self.current == 100):
+            self.current = 0
+            self.ids.my_progress_bar.value = self.current
+        self.current += 10
+        self.ids.my_progress_bar.value = self.current
+        self.ids.load.text = "LOADING"
 
 
 class TheFourthScreen(Screen):

@@ -77,8 +77,8 @@ MainWindow:
         FileChooser:
             id: filechooser
             font_name: "font2"
-            font_size: 25
-            FileChooserIconLayout:
+            font_size: 40
+            FileChooserListLayout:
         BoxLayout:
             size_hint: (1, 0.2)
             pos_hint: {'center_x': .5, 'center_y': .5}
@@ -356,7 +356,6 @@ MainWindow:
                     rounded_rectangle: (self.pos[0],self.pos[1],self.size[0] + 10,self.size[1] + 10,18)
                     width: 2
             id: video3
-            # source: "./Videos/video4.avi"
             source: ""
             state: "play"
             options: {'eos':'loop'}
@@ -374,7 +373,6 @@ MainWindow:
         pos_hint: {"center_x": 0.85,"center_y": 0.6}
         on_release: 
             root.play_video()
-            root.on_start()
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "Pause"
@@ -401,7 +399,7 @@ MainWindow:
         font_size: 20
         pos_hint: {"center_x": 0.85,"center_y": 0.1}
         on_release: 
-            # root.on_start()
+            # root.detect_object()
             root.detect_object()
     RoundedButtonThird:
         text: "Go Back Home"
@@ -418,6 +416,20 @@ MainWindow:
             root.manager.transition.direction = "right"
             root.pause_video()
         border:(16,16,16,16)
+    ProgressBar:
+        id: my_progress_bar
+        value: 0
+        min: 0
+        max: 100
+        pos_hint: {'center_x':0.4,'center_y':0.2}
+        size_hint: .5,.5
+        background: (0,0,0)
+    Label:
+        id: load
+        text: ""
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.05,'center_y':0.2}
 
 <RoundedButtonThird@Button>:
 	background_color:(0,0,0,0)
@@ -446,7 +458,7 @@ MainWindow:
         on_press: 
             app.root.current = "first"
             root.manager.transition.direction = "right"
-            # root.Reset()
+            root.Reset()
         border:(16,16,16,16)
 
 <RoundedButtonFourth@Button>:

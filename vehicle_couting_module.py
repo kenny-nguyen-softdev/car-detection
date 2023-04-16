@@ -23,10 +23,11 @@ def pega_centro(x, y, w, h):
     return cx, cy
 
 
-cap = cv2.VideoCapture('Videos/video2.mp4')
+cap = cv2.VideoCapture(
+    r"C:\Users\Admin\OneDrive\Documents\GitHub\car-detection\Videos\video2.mp4")
 subtracao = cv2.createBackgroundSubtractorMOG2()
 
-while True:
+while cap.isOpened():
     ret, frame1 = cap.read()
     tempo = float(1/delay)
     sleep(tempo)
