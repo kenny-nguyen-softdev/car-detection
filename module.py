@@ -104,6 +104,5 @@ class ModuleOfCar:
             if cv.waitKey(10) & 0xFF == ord('q'):
                 break
 
-        cap.release()
         video_save.release()
         cv.destroyAllWindows()

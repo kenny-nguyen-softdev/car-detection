@@ -77,6 +77,7 @@ class TheThirdScreen(Screen):
         for File in Files:
             if (File == 'video4.avi'):
                 os.remove(File)
+                self.ids.video3.remove_from_cache()
                 break
             else:
                 break
@@ -100,13 +101,14 @@ class TheThirdScreen(Screen):
     def detect_object(self):
         start_time = time.time()
         self.on_start()
-        Clock.schedule_once(self.show_video, 10)
+        self.clock_show_video = Clock.schedule_once(self.show_video, 10)
         self.end_time = time.time() - start_time
         print("Time to solve video is: " + str(self.end_time) + "s")
 
     def show_video(self, *args):
         self.detect_car.detection_car(self.file_path_video)
         self.ids.video3.source = "./Videos/video4.avi"
+        self.clock_show_video.cancel()
 
     def cancel(self):
         self.the_popup.dismiss()

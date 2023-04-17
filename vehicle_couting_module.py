@@ -70,4 +70,3 @@ while cap.isOpened():
         break
 
 cv2.destroyAllWindows()
-cap.release()
