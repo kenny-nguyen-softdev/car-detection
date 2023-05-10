@@ -46,9 +46,9 @@ while cap.isOpened():
             y1 = int(y1)
             x2 = int(x2)
             y2 = int(y2)
-            # new_img = results[0].orig_img[x1:x2,y1:y2]
             image_car = np.array(results[0].orig_img)
             count += 1
+            # Tu anh goc cat anh co chua bien so co toa do (x1:x2,y1:y2)
             new_img = image_car[y1:y2, x1:x2]
             cv.imwrite("new_image" + str(count) + ".png", new_img)
         # annotated_frame = results[0].plot()
