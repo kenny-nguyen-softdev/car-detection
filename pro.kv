@@ -1,0 +1,30 @@
+<MyLayOut>:
+    BoxLayout:
+        id: layout
+        # pos_hint: {"center_x": 0.5,"center_y": 0.5}
+        size: 600,400
+        pos: 200,200
+        VideoPlayer:
+            canvas.before:
+                Color:
+                    rgba: (130/255,144/255,194/225,1) 
+                Line:
+                    rounded_rectangle: (self.pos[0],self.pos[1],self.size[0] + 10,self.size[1] + 10,18)
+                    width: 2
+            id: video3
+            source: ""
+            state: "play"
+            options: {'eos':'loop'}
+            allow_fullscreen: False
+            allow_stretch: True 
+    Button: 
+        text: "Press Me"    
+        on_press: root.show_video()
+    # orientation: "vertical"
+    # Button:
+    #     id: load_button
+    #     text: "Load Video"
+    #     on_press: root.load_video()
+    # VideoPlayer:
+    #     id: video
+    #     state: "play"

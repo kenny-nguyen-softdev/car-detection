@@ -29,14 +29,10 @@ class ModuleOfCar:
             "./Videos/video4.avi", cv.VideoWriter_fourcc(*'MJPG'), 10, size_of_video)
         while cap.isOpened():
             success, frame = cap.read()
-
             if success:
                 results = model(frame)
-
                 annotated_frame = results[0].plot()
-
                 video_save.write(annotated_frame)
-
                 if cv.waitKey(10) & 0xFF == ord('q'):
                     break
             else:
@@ -44,6 +40,9 @@ class ModuleOfCar:
         cap.release()
         video_save.release()
         cv.destroyAllWindows()
+        # model.predict(source="./Videos/video2.mp4", show=False, save=True, show_labels=False, show_conf=False,
+        #               conf=0.5, save_txt=False, save_crop=False, line_thickness=2, box=True, visualize=False)
+
         pass
 
     def pega_centro(self, x, y, w, h):

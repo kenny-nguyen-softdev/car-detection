@@ -12,6 +12,24 @@ MainWindow:
     title_align: "center"
     title_font: "font2" 
     title_size: 25
+<WindowLoading>:
+    title: "LOADING"
+    size_hint: .3, .5   
+    title_align: "center"
+    title_font: "font2" 
+    title_size: 25
+<Content_Loading>:
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 2.9, .9
+        pos_hint: {"center_x": 0.5,"center_y": 0.5}
+        Image:
+            source: "./Images/loading.jpg"
+            allow_stretch: True
+
+
+            
+
 
 <NotificationExitApp>:
     BoxLayout:
@@ -278,7 +296,7 @@ MainWindow:
             source: "./Images/member.jpg"
             size_hint: 0.1,0.1
         Label:
-            text:'Huỳnh Hùng Phú'
+            text:'Huynh Hung Phu'
             font_size: 25
             font_name: "font2"
         Label:
@@ -289,7 +307,7 @@ MainWindow:
             source: "./Images/member.jpg"
             size_hint: 0.1,0.1
         Label:
-            text:'Nguyễn Đình Quang Huy'
+            text:'Nguyen Dinh Quang Huy'
             font_size: 25
             font_name: "font2"
         Label:
@@ -301,7 +319,7 @@ MainWindow:
             size_hint: 0.1,0.1
         
         Label:
-            text:'Huỳnh Hùng Phú'
+            text:'Nguyen Trung Kien'
             font_size: 25
             font_name: "font2"
         Label:
@@ -365,7 +383,7 @@ MainWindow:
         text:'Numbers of cars in road line'
         font_size: 25
         font_name: "font2"
-        pos_hint: {"center_x": 0.87,"center_y": 0.8}
+        pos_hint: {"center_x": 0.85,"center_y": 0.8}
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "Play"
@@ -394,12 +412,14 @@ MainWindow:
         on_release: root.open_popup()
     RoundedButtonThird:
         size_hint:0.2,0.1
-        text: "COUNTING CAR"
+        text: "DETECT CAR"
         font_name: "font2"
         font_size: 20
         pos_hint: {"center_x": 0.85,"center_y": 0.1}
+        # on_press: root.open_popup_loading()
         on_release: 
-            root.couting_car()
+            # root.couting_car()
+            root.detect_object()
     RoundedButtonThird:
         text: "Go Back Home"
         color: (0,0,0)
@@ -415,20 +435,20 @@ MainWindow:
             root.manager.transition.direction = "right"
             root.pause_video()
         border:(16,16,16,16)
-    ProgressBar:
-        id: my_progress_bar
-        value: 0
-        min: 0
-        max: 100
-        pos_hint: {'center_x':0.4,'center_y':0.2}
-        size_hint: .5,.5
-        background: (0,0,0)
-    Label:
-        id: load
-        text: ""
-        font_size: 30
-        font_name: "font2"
-        pos_hint: {'center_x':0.05,'center_y':0.2}
+    # ProgressBar:
+    #     id: my_progress_bar
+    #     value: 0
+    #     min: 0
+    #     max: 100
+    #     pos_hint: {'center_x':0.4,'center_y':0.2}
+    #     size_hint: .5,.5
+    #     background: (0,0,0)
+    # Label:
+    #     id: load
+    #     text: ""
+    #     font_size: 30
+    #     font_name: "font2"
+    #     pos_hint: {'center_x':0.05,'center_y':0.2}
 
 <RoundedButtonThird@Button>:
 	background_color:(0,0,0,0)
