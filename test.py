@@ -25,6 +25,7 @@
 import cv2 as cv
 from ultralytics import YOLO
 import numpy as np
+import time
 
 model = YOLO('model_bien_so.pt')
 video_path = "./Videos/video70.mp4"
@@ -35,6 +36,7 @@ size_of_video = (width_video, height_video)
 video_save = cv.VideoWriter(
     "./Videos/video4.avi", cv.VideoWriter_fourcc(*'MJPG'), 10, size_of_video)
 count = 0
+start_time = time.time()
 while cap.isOpened():
     success, frame = cap.read()
     if success:
@@ -58,6 +60,8 @@ while cap.isOpened():
         #     break
     else:
         break
+end_time = time.time() - start_time
+print("Time to run code is: " + str(end_time))
 cap.release()
 video_save.release()
 cv.destroyAllWindows()
