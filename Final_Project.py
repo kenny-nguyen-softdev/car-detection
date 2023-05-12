@@ -199,9 +199,13 @@ class TheThirdScreen(Screen):
         self.current += 10
         self.ids.my_progress_bar.value = self.current
         self.ids.load.text = "LOADING"
-
+    def detection_license_car(self):
+        self.detect_car.detect_license_car(self.file_path_video)
+        
 
 class TheFourthScreen(Screen):
+    pass
+class TheConvertScreen(Screen):
     pass
 
 

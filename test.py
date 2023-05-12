@@ -12,9 +12,12 @@ size_of_video = (width_video, height_video)
 video_save = cv.VideoWriter(
     "./Videos/video4.avi", cv.VideoWriter_fourcc(*'MJPG'), 10, size_of_video)
 count = 0
+detect = []
+n_detect = 0
 start_time = time.time()
 while cap.isOpened():
     success, frame = cap.read()
+    
     if success:
         results = model(frame)
         for r in results[0].boxes.data.tolist():
@@ -27,7 +30,12 @@ while cap.isOpened():
             count += 1
             # Tu anh goc cat anh co chua bien so co toa do (x1:x2,y1:y2)
             new_img = image_car[y1:y2, x1:x2]
-            cv.imwrite("new_image" + str(count) + ".png", new_img)
+            # detect.append(new_img)
+            n_detect +=1
+            print(detect)
+            if(len(detect) == 1 or (detect[n_detect - 1].all() != detect[n_detect -2].all())):
+                # print("./new_img/new_image" + str(count) + ".png")
+                cv.imwrite("./new_img/new_image" + str(count) + ".png", new_img)
     else:
         break
 end_time = time.time() - start_time

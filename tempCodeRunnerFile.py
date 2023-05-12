@@ -1,3 +1,2 @@
-for result in results:
-        print("Ket qua show duoc : ")
-        print(result)
+print(img1)
+# print(img2)

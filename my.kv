@@ -3,6 +3,7 @@ MainWindow:
     TheSecondScreen:
     TheThirdScreen:
     TheFourthScreen:
+    TheConvertScreen:
 
 
 <WindowExit>:
@@ -369,7 +370,7 @@ MainWindow:
         VideoPlayer:
             canvas.before:
                 Color:
-                    rgba: (130/255,144/255,194/225,1) 
+                    rgba: (43/255,43/255,22/225,1) 
                 Line:
                     rounded_rectangle: (self.pos[0],self.pos[1],self.size[0] + 10,self.size[1] + 10,18)
                     width: 2
@@ -379,47 +380,43 @@ MainWindow:
             options: {'eos':'loop'}
             allow_fullscreen: False
             allow_stretch: True 
-    Label:
-        text:'Numbers of cars in road line'
-        font_size: 25
-        font_name: "font2"
-        pos_hint: {"center_x": 0.85,"center_y": 0.8}
-    RoundedButtonThird:
-        size_hint:0.2,0.1
-        text: "Play"
-        font_name: "font2"
-        pos_hint: {"center_x": 0.85,"center_y": 0.6}
-        on_release: 
-            root.play_video()
-    RoundedButtonThird:
-        size_hint:0.2,0.1
-        text: "Pause"
-        font_name: "font2"
-        pos_hint: {"center_x": 0.85,"center_y": 0.4}
-        on_release: root.pause_video()
-    Label:
-        id: time
-        text:'Time to slove file video: 0'
-        font_size: 25
-        font_name: "font2"
-        pos_hint: {"center_x": 0.85,"center_y": 0.2}
-    RoundedButtonThird:
-        size_hint:0.2,0.1
-        text: "LOAD VIDEO"
-        font_name: "font2"
-        font_size: 30
-        pos_hint: {"center_x": 0.5,"center_y": 0.1}
-        on_release: root.open_popup()
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "DETECT CAR"
         font_name: "font2"
-        font_size: 20
-        pos_hint: {"center_x": 0.85,"center_y": 0.1}
-        # on_press: root.open_popup_loading()
+        pos_hint: {"center_x": 0.85,"center_y": 0.87}
         on_release: 
-            # root.couting_car()
             root.detect_object()
+    RoundedButtonThird:
+        size_hint:0.2,0.1
+        text: "DETECT LICENSE PLATE"
+        font_name: "font2"
+        pos_hint: {"center_x": 0.85,"center_y": 0.67}
+        on_release: root.detection_license_car()
+    RoundedButtonThird:
+        size_hint:0.2,0.1
+        text: "CONVERT TO TEXT"
+        font_name: "font2"
+        pos_hint: {"center_x": 0.85,"center_y": 0.47}
+        on_press: 
+            app.root.current = "convert"
+            root.manager.transition.direction = "left"
+    RoundedButtonThird:
+        size_hint:0.2,0.1
+        text: "COUNT THE NUMBER OF CAR"
+        font_name: "font2"
+        pos_hint: {"center_x": 0.85,"center_y": 0.27}
+        on_release: root.pause_video()
+    RoundedButtonThird:
+        size_hint:0.2,0.1
+        text: "LOAD VIDEO"
+        outline_color: (243/255,246/255,244/255)
+        outline_width: 3
+        color: (0,0,0)
+        font_name: "font2"
+        font_size: 25
+        pos_hint: {"center_x": 0.5,"center_y": 0.1}
+        on_release: root.open_popup()
     RoundedButtonThird:
         text: "Go Back Home"
         color: (0,0,0)
@@ -433,22 +430,14 @@ MainWindow:
         on_press: 
             app.root.current = "first"
             root.manager.transition.direction = "right"
-            root.pause_video()
+            # root.pause_video()
         border:(16,16,16,16)
-    # ProgressBar:
-    #     id: my_progress_bar
-    #     value: 0
-    #     min: 0
-    #     max: 100
-    #     pos_hint: {'center_x':0.4,'center_y':0.2}
-    #     size_hint: .5,.5
-    #     background: (0,0,0)
-    # Label:
-    #     id: load
-    #     text: ""
-    #     font_size: 30
-    #     font_name: "font2"
-    #     pos_hint: {'center_x':0.05,'center_y':0.2}
+    Label:
+        id: complete
+        text: ""
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.05,'center_y':0.2}
 
 <RoundedButtonThird@Button>:
 	background_color:(0,0,0,0)
@@ -477,7 +466,7 @@ MainWindow:
         on_press: 
             app.root.current = "first"
             root.manager.transition.direction = "right"
-            root.Reset()
+            # root.Reset()
         border:(16,16,16,16)
 
 <RoundedButtonFourth@Button>:
@@ -491,4 +480,131 @@ MainWindow:
 			radius: [30]
         
 
-    
+<TheConvertScreen>:
+    name: "convert"
+    id: convert5
+    # slider_text: silder_label
+    canvas.before:
+        Color:
+            rgba:(65/255,93/255,67/225,1)
+        Rectangle:
+            # source: "background_purple.png"
+            size: root.width,root.height
+            pos:self.pos
+    GridLayout:
+        cols:2
+        size: root.width - 300,root.height - 400
+        pos_hint: {'center_x': 0.5,'center_y': 0.8}
+        padding: 40
+        spacing: 10
+        Image:
+            id: my_image5
+            size_hint: 0.4,0.4
+            source: "./Images/image5.png"
+        Image:
+            id: new_image5
+            source: "./Images/image5.png"
+            size_hint: 0.4,0.4
+    RoundedButtonFifth:
+        text: "CHOOSE FILE"
+        color: (0,0,0)
+        outline_color: (243/255,246/255,244/255)
+        outline_width: 3
+        size_hint: 0.2,0.1
+        bold:True
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.5,'center_y':0.35}
+        on_press: root.open_popup()
+        border:(16,16,16,16)
+    # ScrollView:
+    #     do_scroll_x: True
+    #     do_scroll_y: False
+    #     size_hint: (1,None)
+    #     height: 1000
+    #     size: root.width - 200,root.height - 500
+    #     pos_hint: {"center_x":0.52,"center_y":0.1}
+    GridLayout:
+        cols:20
+        padding: 50
+        size_hint:1.2,0.3
+        spacing: 20
+        pos_hint: {'center_x': 0.65,'center_y': 0.1}
+        RoundedButtonFifth:
+            text: "CONVERT TO TEXT"
+            color: (0,0,0)
+            outline_color: (243/255,246/255,244/255)
+            outline_width: 3
+            size_hint: 0.2,0.1
+            bold:True
+            font_size: 30
+            font_name: "font2"
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            on_press: root.Erosion()
+            border:(16,16,16,16)
+        RoundedButtonFifth:
+            text: "HOME"
+            color: (0,0,0)
+            outline_color: (243/255,246/255,244/255)
+            outline_width: 3
+            size_hint: 0.2,0.1
+            bold:True
+            font_size: 30
+            font_name: "font2"
+            pos_hint: {'center_x': 0.5,'center_y': 0.05}
+            on_press: 
+                app.root.current = "first"
+                root.manager.transition.direction = "right"
+                # root.Reset()
+            border:(16,16,16,16)
+    # Label:
+    #     id: silder_label
+    #     text: "Threshval: 0"
+    #     font_size: 20
+    #     pos_hint: {"center_x":0.2,"center_y":0.09}
+    #     font_name: "font2"
+    # Slider:
+    #     id:slider_ex4
+    #     min:0
+    #     max:255
+    #     step: 1
+    #     size_hint:0.3,0.2
+    #     on_value:root.slide_it(*args)
+    #     orientation:"horizontal"
+    #     pos_hint: {"center_x":0.2,"center_y":0.06}
+    #     cursor_image: "cursor.jpg"
+    #     cursor_height: 30
+    #     cursor_background: (0,0,0)
+    # GridLayout:
+    #     cols:6
+    #     pos_hint: {"center_x":0.72,"center_y":0.06}
+    #     size_hint: 0.5,0.2
+    #     Label:
+    #         text:"k1 = 6x6"
+    #         font_size: 30
+    #         font_name:"font2" 
+    #     CheckBox:
+    #         on_active:root.checkbox_click(self,self.active,"k1 = 6x6")
+    #     Label:
+    #         text:"k2 = 11x11"
+    #         font_size: 30
+    #         font_name:"font2" 
+    #     CheckBox:
+    #         on_active:root.checkbox_click(self,self.active,"k2 = 11x11")
+    #     Label:
+    #         text:"k3 = 15x15"
+    #         font_size: 30
+    #         font_name:"font2" 
+    #     CheckBox:
+    #         on_active:root.checkbox_click(self,self.active,"k3 = 15x15")
+
+<RoundedButtonFifth@Button>:
+	background_color:(0,0,0,0)
+	background_normal: ""
+	canvas.before:
+		Color:
+			rgba: (35/255,51/255,41/225,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [30]
