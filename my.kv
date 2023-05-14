@@ -19,6 +19,49 @@ MainWindow:
     title_align: "center"
     title_font: "font2" 
     title_size: 25
+<WindowPopup>:
+    title: "PLEASE CHOOSE IMAGE"
+    size_hint: .7, .7   
+    title_align: "center"
+    title_font: "font2" 
+    title_size: 25
+<Content_Convert>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba:(84/255,80/255,76/225,1)
+            Rectangle:
+                size: root.width,root.height
+                pos:self.pos
+        orientation: "vertical"
+        pos_hint: {"center_x":0.5,"center_y": 0.5}
+        spacing: 10
+        padding: 10
+        FileChooser:
+            id: filechooser
+            font_name: "font2"
+            font_size: 40
+            FileChooserListLayout:
+        BoxLayout:
+            size_hint: (1, 0.2)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 20
+            RoundedButtonContent1:
+                text: "Cancel"
+                # on_release: root.cancel_popup()
+                on_release: root.cancel()
+                font_size: 25
+                font_name: "font2"
+                color: (0,0,0)
+            RoundedButtonContent2:
+                id: ldbtn
+                text: "Load"
+                font_size: 25
+                font_name: "font2"
+                color: (0,0,0)
+                on_release: root.load(filechooser.selection)
+                disabled: True if filechooser.selection==[] else False
+
 <Content_Loading>:
     BoxLayout:
         orientation: "vertical"
@@ -301,7 +344,7 @@ MainWindow:
             font_size: 25
             font_name: "font2"
         Label:
-            text:'MSSV: 20110'
+            text:'MSSV: 20110540'
             font_size: 25
             font_name: "font2"
         Image:
@@ -312,7 +355,7 @@ MainWindow:
             font_size: 25
             font_name: "font2"
         Label:
-            text:'MSSV: 20110'
+            text:'MSSV: 20110494'
             font_size: 25
             font_name: "font2"
         Image:
@@ -324,7 +367,7 @@ MainWindow:
             font_size: 25
             font_name: "font2"
         Label:
-            text:'MSSV: 20110'
+            text:'MSSV: 20110506'
             font_size: 25
             font_name: "font2"
     RoundedButtonSecond:
@@ -406,7 +449,25 @@ MainWindow:
         text: "COUNT THE NUMBER OF CAR"
         font_name: "font2"
         pos_hint: {"center_x": 0.85,"center_y": 0.27}
-        on_release: root.pause_video()
+        on_release: root.couting_car()
+    Label:
+        id: NameOfMember1
+        text: "Huynh Hung Phu"
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.85,'center_y':0.17}
+    Label:
+        id: NameOfMember2
+        text: "Nguyen Dinh Quang Huy"
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.85,'center_y':0.11}
+    Label:
+        id: NameOfMember3
+        text: "Nguyen Trung Kien"
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.85,'center_y':0.04}
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "LOAD VIDEO"
@@ -488,7 +549,6 @@ MainWindow:
         Color:
             rgba:(65/255,93/255,67/225,1)
         Rectangle:
-            # source: "background_purple.png"
             size: root.width,root.height
             pos:self.pos
     GridLayout:
@@ -498,13 +558,25 @@ MainWindow:
         padding: 40
         spacing: 10
         Image:
-            id: my_image5
+            id: my_image_convert
             size_hint: 0.4,0.4
             source: "./Images/image5.png"
         Image:
-            id: new_image5
+            id: new_image_convert
             source: "./Images/image5.png"
             size_hint: 0.4,0.4
+    Label:
+        id: title
+        text: "Convert to text"
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.5,'center_y':0.35}
+    Label:
+        id: convert_label
+        text: ""
+        font_size: 30
+        font_name: "font2"
+        pos_hint: {'center_x':0.5,'center_y':0.5}
     RoundedButtonFifth:
         text: "CHOOSE FILE"
         color: (0,0,0)
@@ -517,13 +589,6 @@ MainWindow:
         pos_hint: {'center_x':0.5,'center_y':0.35}
         on_press: root.open_popup()
         border:(16,16,16,16)
-    # ScrollView:
-    #     do_scroll_x: True
-    #     do_scroll_y: False
-    #     size_hint: (1,None)
-    #     height: 1000
-    #     size: root.width - 200,root.height - 500
-    #     pos_hint: {"center_x":0.52,"center_y":0.1}
     GridLayout:
         cols:20
         padding: 50
@@ -540,7 +605,7 @@ MainWindow:
             font_size: 30
             font_name: "font2"
             pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            on_press: root.Erosion()
+            on_press: root.convert_image()
             border:(16,16,16,16)
         RoundedButtonFifth:
             text: "HOME"
@@ -557,46 +622,6 @@ MainWindow:
                 root.manager.transition.direction = "right"
                 # root.Reset()
             border:(16,16,16,16)
-    # Label:
-    #     id: silder_label
-    #     text: "Threshval: 0"
-    #     font_size: 20
-    #     pos_hint: {"center_x":0.2,"center_y":0.09}
-    #     font_name: "font2"
-    # Slider:
-    #     id:slider_ex4
-    #     min:0
-    #     max:255
-    #     step: 1
-    #     size_hint:0.3,0.2
-    #     on_value:root.slide_it(*args)
-    #     orientation:"horizontal"
-    #     pos_hint: {"center_x":0.2,"center_y":0.06}
-    #     cursor_image: "cursor.jpg"
-    #     cursor_height: 30
-    #     cursor_background: (0,0,0)
-    # GridLayout:
-    #     cols:6
-    #     pos_hint: {"center_x":0.72,"center_y":0.06}
-    #     size_hint: 0.5,0.2
-    #     Label:
-    #         text:"k1 = 6x6"
-    #         font_size: 30
-    #         font_name:"font2" 
-    #     CheckBox:
-    #         on_active:root.checkbox_click(self,self.active,"k1 = 6x6")
-    #     Label:
-    #         text:"k2 = 11x11"
-    #         font_size: 30
-    #         font_name:"font2" 
-    #     CheckBox:
-    #         on_active:root.checkbox_click(self,self.active,"k2 = 11x11")
-    #     Label:
-    #         text:"k3 = 15x15"
-    #         font_size: 30
-    #         font_name:"font2" 
-    #     CheckBox:
-    #         on_active:root.checkbox_click(self,self.active,"k3 = 15x15")
 
 <RoundedButtonFifth@Button>:
 	background_color:(0,0,0,0)

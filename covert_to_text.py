@@ -4,7 +4,7 @@ import cv2
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Admin\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
-img = cv2.imread('./Images/new_image1.png')
+img = cv2.imread('./new_img_license/new_image1.png')
 
 # chuyển ảnh sang đen trắng
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
