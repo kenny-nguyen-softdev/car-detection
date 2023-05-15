@@ -11,7 +11,7 @@ class ModuleOfCar:
     detect_license = []
     n_detect_license = 0
     def detection_car(self, file_path):
-        model = YOLO('yolov8n.pt')
+        model = YOLO('model_nhan_dien_xe.pt')
         video_path = file_path
         cap = cv.VideoCapture(video_path)
         width_video = int(cap.get(3))
@@ -49,7 +49,7 @@ class ModuleOfCar:
         count=0
         tracker = Tracker()
 
-        area1 = [(387,479),(382,447),(480,438),(494,479)]
+        area1 = [(294,482),(418,484),(427,449),(312,449)]
         area_1 = set()
         size_of_video = (1020,600)
         video_save = cv.VideoWriter(
@@ -133,9 +133,13 @@ class ModuleOfCar:
     def convert_to_text(self,file_path,count):
         pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Admin\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
         img = cv.imread(file_path)
-        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        img2 = 255 - img
+        gray = cv.cvtColor(img2, cv.COLOR_BGR2GRAY)
         thresh = cv.threshold(gray, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
         cv.imwrite("./New_img_convert/new_image_convert" + str(count) + ".png", thresh)
         text = pytesseract.image_to_string(thresh, lang='eng', config='--psm 6')
+        if "!" in text:
+            text = text.replace("!","1")
+        if "i" in text:
+            text = text.replace("i","1")
         return text
-        pass

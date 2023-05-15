@@ -136,38 +136,12 @@ class TheThirdScreen(Screen):
         print("Time to solve video is: " + str(self.end_time) + "s")
 
     def show_video(self, *args):
-        # t = threading.Thread(
-        #     self.detection_car(self.file_path_video))
-        # t.start()
-        self.ids.video3.source = "./runs/detect/predict2/video70.mp4"
+        t = threading.Thread(
+            self.detect_car.detection_car(self.file_path_video))
+        t.start()
+        self.ids.video3.source = "./Videos/video_detect_car.avi"
         # self.the_popup_loading.dismiss()
         self.clock_show_video.cancel()
-
-    def detection_car(self, file_path):
-        model = YOLO('yolov8n.pt')
-        video_path = file_path
-        cap = cv.VideoCapture(video_path)
-        width_video = int(cap.get(3))
-        height_video = int(cap.get(4))
-        size_of_video = (width_video, height_video)
-        video_save = cv.VideoWriter(
-            "./Videos/video4.avi", cv.VideoWriter_fourcc(*'MJPG'), 10, size_of_video)
-        while cap.isOpened():
-            success, frame = cap.read()
-            if success:
-                results = model(frame)
-                annotated_frame = results[0].plot()
-                self.texture.blit_buffer(
-                    annotated_frame.tobytes(), colorfmt='rgb')
-                self.ids.video3.texture = self.texture
-                # video_save.write(annotated_frame)
-                if cv.waitKey(10) & 0xFF == ord('q'):
-                    break
-            else:
-                break
-        cap.release()
-        video_save.release()
-        cv.destroyAllWindows()
 
     def play_video(self):
         self.ids.video3.state = "play"
@@ -181,7 +155,9 @@ class TheThirdScreen(Screen):
 
     def couting_car(self):
         start_time = time.time()
-        self.detect_car.vehicle_couting_car(self.file_path_video)
+        t1 = threading.Thread(
+            self.detect_car.vehicle_couting_car(self.file_path_video))
+        t1.start()
         self.end_time = time.time() - start_time
         self.ids.video3.source = "./Videos/video_counting.avi"
         print("End time to slove" + str(self.end_time))
@@ -206,8 +182,8 @@ class TheThirdScreen(Screen):
         self.detect_car.detect_license_car(self.file_path_video)
         self.ids.video3.source = "./Videos/video_licence_car.avi"
     def detection_license_car_run(self):
-        t = threading.Thread(self.detection_license_car())
-        t.start()
+        t2 = threading.Thread(self.detection_license_car())
+        t2.start()
         
 
 class TheFourthScreen(Screen):
@@ -237,7 +213,8 @@ class TheConvertScreen(Screen):
         label = self.detect_car.convert_to_text(self.file_path_convert,self.count)
         self.ids.new_image_convert.source = "./New_img_convert/new_image_convert" + str(self.count) + ".png"
         self.count += 1
-        self.ids.convert_label.text = "AUY-1857"
+        # self.ids.convert_label.text = "AUY-1857"
+        self.ids.convert_label.text = label
     pass
 
 

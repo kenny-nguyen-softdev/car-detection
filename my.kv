@@ -435,7 +435,7 @@ MainWindow:
         text: "DETECT LICENSE PLATE"
         font_name: "font2"
         pos_hint: {"center_x": 0.85,"center_y": 0.67}
-        on_release: root.detection_license_car()
+        on_release: root.detection_license_car_run()
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "CONVERT TO TEXT"
@@ -467,7 +467,7 @@ MainWindow:
         text: "Nguyen Trung Kien"
         font_size: 30
         font_name: "font2"
-        pos_hint: {'center_x':0.85,'center_y':0.04}
+        pos_hint: {'center_x':0.85,'center_y':0.05}
     RoundedButtonThird:
         size_hint:0.2,0.1
         text: "LOAD VIDEO"
@@ -514,16 +514,55 @@ MainWindow:
 <TheFourthScreen>:
     name: "fourth"
     id: my_widget4
-    RoundedButtonFourth:
+    GridLayout:
+        cols:3
+        padding: 150
+        spacing: 20
+        pos_hint: {'center_x': 0.6,'center_y': 0.5}
+        Image:
+            source: "./Images/member.jpg"
+            size_hint: 0.1,0.1
+        Label:
+            text:'Huynh Hung Phu'
+            font_size: 25
+            font_name: "font2"
+        Label:
+            text:'Rate: 100%'
+            font_size: 25
+            font_name: "font2"
+        Image:
+            source: "./Images/member.jpg"
+            size_hint: 0.1,0.1
+        Label:
+            text:'Nguyen Dinh Quang Huy'
+            font_size: 25
+            font_name: "font2"
+        Label:
+            text:'Rate: 100%'
+            font_size: 25
+            font_name: "font2"
+        Image:
+            source: "./Images/member.jpg"
+            size_hint: 0.1,0.1
+        
+        Label:
+            text:'Nguyen Trung Kien'
+            font_size: 25
+            font_name: "font2"
+        Label:
+            text:'Rate: 100%'
+            font_size: 25
+            font_name: "font2"
+    RoundedButtonSecond:
         text: "Go Back Home"
         color: (0,0,0)
         outline_color: (243/255,246/255,244/255)
         outline_width: 3
-        size_hint: 0.3,0.3
+        size_hint: 0.2,0.1
         bold:True
         font_size: 40
         font_name: "font2"
-        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        pos_hint: {'center_x': 0.15,'center_y': 0.1}
         on_press: 
             app.root.current = "first"
             root.manager.transition.direction = "right"
@@ -574,7 +613,7 @@ MainWindow:
     Label:
         id: convert_label
         text: ""
-        font_size: 30
+        font_size: 35
         font_name: "font2"
         pos_hint: {'center_x':0.5,'center_y':0.5}
     RoundedButtonFifth:
